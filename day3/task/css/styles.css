@@ -53,14 +53,14 @@
 	border: 1px solid black;
 	background-color: white;
 	-webkit-user-select: none;
+	cursor: pointer;
 }
 
-.released-div{
-	cursor: pointer;
+.but.released-div{
 	pointer-events: auto;
 }
 
-.blocked-div{
+.but.blocked-div{
 	cursor: no-drop;
 	pointer-events: none;
 	opacity: 0.5;
