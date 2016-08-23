@@ -1,4 +1,4 @@
-function ZombieMickael(id,road,mediator){
+function ZombieMickael(id,road){
 	Zombie.apply(this,arguments);
 	
 	this.HEALTH = 1000;
@@ -7,7 +7,7 @@ function ZombieMickael(id,road,mediator){
 	this.zombieHtml.addClass("zombie michael");
 }
 
-function ZombieStrong(id,road,mediator){
+function ZombieStrong(id,road){
 	Zombie.apply(this,arguments);
 	
 	this.HEALTH = 1000;
@@ -16,24 +16,30 @@ function ZombieStrong(id,road,mediator){
 	this.zombieHtml.addClass("zombie strong");
 }
 
-function Zombie(id,road,mediator){
+function Zombie(id,road){
 	this.id = id;
-	this.mediator = mediator;
-
+	this.road = road;
 
 	this.zombieHtml = $("<div></div>");
-	this.zombieHtml.attr('id',this.id);
-	$("#road"+road).append(this.zombieHtml);
+
+	this.road.append(this.zombieHtml);
 
 	this.move = function(){
-		var block = $("#" + this.id);
-		block.animate({left: 0},this.SPEED,'linear', this.mediator.finish);
+
+		var position = this.zombieHtml.position().left;
+		if(position != 0) {
+			this.zombieHtml.animate({left: 0},this.SPEED,'linear');
+			return "walking";
+		}
+		else{
+			this.stop();
+			return "finished";
+		}
 	};
 	this.stop = function(){
-		var block = $("#" + this.id);
-		block.stop();
+		this.zombieHtml.stop();
 	}
 	this.remove = function(){
-		$("#" + this.id).remove();
+		this.zombieHtml.remove();
 	}
 }
