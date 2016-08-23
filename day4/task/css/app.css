@@ -22,7 +22,7 @@ body {
 	margin: 0 auto; 
 }
 .field-line { 
-	height: 75px; 
+	height: 85px; 
 	background-color: #4caf50; 
 	position: relative;
 	background-image: url(../img/grass2.jpg);
@@ -49,9 +49,21 @@ body {
 }
 
 .zombie { 
+}
+
+.zombie-field{
 	position: absolute; 
-	top: 0; 
-	right: 0; 
+	bottom: 0; 
+	right: 0;
+}
+
+.zombie-field .health{
+	display: inline-block;
+	height: 10px;
+	width: 100%;
+	background-color: orange;
+	font-size: 12px;
+	border: 1px solid black;
 }
 
 .zombie.michael { 
