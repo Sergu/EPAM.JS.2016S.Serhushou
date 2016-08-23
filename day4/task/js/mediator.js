@@ -5,7 +5,7 @@ function Mediator(){
 
 	this.start = function(){
 
-		intervalId = setInterval(zombiesMove,100);
+		intervalId = setInterval(zombiesMove,90);
 
 	}
 
