@@ -3,7 +3,7 @@ function ZombieMickael(id,road){
 	
 	this.SPEED = 13000;
 
-	this.zombieHtml.addClass("zombie michael");
+	this.zombieHtml.addClass("zombie-michael");
 }
 
 function ZombieStrong(id,road){
@@ -13,7 +13,7 @@ function ZombieStrong(id,road){
 	this.MAX_HEALTH = 100;
 	this.SPEED = 15000;
 
-	this.zombieHtml.addClass("zombie strong");
+	this.zombieHtml.addClass("zombie-strong");
 }
 
 function Zombie(id,road){
@@ -51,6 +51,7 @@ function Zombie(id,road){
 		}
 		else{
 			this.stop();
+			this.remove();
 			return "finished";
 		}
 	};

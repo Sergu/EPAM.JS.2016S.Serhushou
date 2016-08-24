@@ -50,8 +50,9 @@ function Mediator(){
 				case "walking":
 					break;
 				case "finished":
-					clearInterval(intervalId);
-					self.finish();
+					//clearInterval(intervalId);
+					//self.finish();
+					zombie = null;
 					break;
 				default:
 					break;
