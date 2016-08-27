@@ -1,11 +1,12 @@
 function Mediator(){
-	var zombies = [];
-	var intervalId;
-	var self = this;
+
+	var zombieMoveIntervalId = -1;
+	var zombieGrowOldIntervalId = -1;
+	var zombieSlowUpIntervalId = -1;
 
 	this.start = function(){
 
-		intervalId = setInterval(zombiesMove,90);
+		zombieMoveIntervalId = setInterval(zombiesMove.bind(this),30);
 
 	}
 
@@ -20,8 +21,6 @@ function Mediator(){
 		switch (zombieType) {
 			case 1:
 				zombie = new ZombieMickael(id,road); 
-				// id - идентификатор зомби, roadNumber - номер дорожки, 
-				// this - ссылка на медиатор, используется в зомби для вызова функции завершения.
 				break;
 			case 2:
 				zombie = new ZombieStrong(id,road);
@@ -42,20 +41,78 @@ function Mediator(){
 		$(".game-over").css("display","block");
 	};
 
+
+	this.slowUp = function(){
+		clearInterval(zombieSlowUpIntervalId);
+
+		var slowZombies = function(){
+			for(var i = 0; i < zombies.length; i++){
+				if(zombies[i] != null){
+					var zombie = zombies[i];
+					zombie.currentSpeed = zombie.MINSPEED;
+				}
+			}
+		}
+		var reestablishZombies = function(){
+			for(var i = 0; i < zombies.length; i++){
+				if(zombies[i] != null){
+					var zombie = zombies[i];
+					zombie.currentSpeed = zombie.SPEED;
+				}
+			}
+		}
+
+		slowZombies();
+		zombieSlowUpIntervalId = setInterval(reestablishZombies,10000);
+	}
+
+	this.growOld = function(){
+		clearInterval(zombieGrowOldIntervalId);
+		var count = 10;
+		var old = function(){
+			if(count > 0)
+			{
+				for(var i = 0; i < zombies.length; i++){
+					if(zombies[i] != null){
+						var zombie = zombies[i];
+						zombie.receiveDamage(1);
+					}
+				}
+				count--;
+			}
+			else{
+				clearInterval(zombieGrowOldIntervalId);
+			}
+		}
+
+		zombieGrowOldIntervalId = setInterval(old,1000);
+	}
+	this.explode = function(damage){
+		for (var i = 0; i < zombies.length; i++) {
+			if(zombies[i] != null){
+				var zombie = zombies[i];
+				zombie.receiveDamage(30);
+			}
+		};
+	}
+
 	var zombiesMove = function(){
 		for (var i = 0; i < zombies.length; i++) {
-			var zombie = zombies[i];
-			var movingResult = zombie.move();
-			switch(movingResult){
-				case "walking":
-					break;
-				case "finished":
-					//clearInterval(intervalId);
-					//self.finish();
-					zombie = null;
-					break;
-				default:
-					break;
+			if(zombies[i] != null){
+				var zombie = zombies[i];
+				var movingResult = zombie.move();
+				switch(movingResult){
+					case "walking":
+						break;
+					case "finished":
+					case "dead":
+						zombie.stop();
+						zombie.remove();
+						zombies[i] = null;
+						break;
+					default:
+						break;
+				}
 			}
 		};
 	}
