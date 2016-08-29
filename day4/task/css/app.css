@@ -55,6 +55,41 @@ body {
 	right: 0;
 }
 
+.plant-field{
+	position: absolute;
+	bottom: 0;
+	left: 10px;
+}
+
+.plant-field .health{
+	display: inline-block;
+	height: 8px;
+	width: 96%;
+	background-color: green;
+	text-align: center;
+	padding-bottom: 4px;
+	font-size: 10px;
+	font-weight: bold;
+	border: 1px solid black;
+	opacity: 0.7;
+}
+
+.plant-strong{
+	width: 50px; 
+	height: 49px; 
+	background-image: 
+	url(../img/plantStrong.gif); 
+	background-size: cover; 
+}
+
+.plant-simple{
+	width: 50px; 
+	height: 49px; 
+	background-image: 
+	url(../img/plantSimple.gif); 
+	background-size: cover; 
+}	
+
 .zombie-field .health{
 	display: inline-block;
 	height: 8px;
@@ -81,5 +116,25 @@ body {
 	height: 73px; 
 	background-image: 
 	url(../img/strong.gif); 
+	background-size: cover; 
+}
+
+.bullet-simple{
+	display: inline-block;
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	top: 43px;
+	background-image: url(../img/greenBullet.gif);
+	background-size: cover; 
+}
+
+.bullet-strong{
+	display: inline-block;
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	top: 43px;
+	background-image: url(../img/redBullet.png);
 	background-size: cover; 
 }

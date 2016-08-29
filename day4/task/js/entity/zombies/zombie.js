@@ -1,32 +1,7 @@
-function ZombieMickael(id,road){
-	Zombie.apply(this,arguments);
-	
-	this.health = 50;
-	this.MAX_HEALTH = 50;
-	this.SPEED = 3;
-	this.MINSPEED = 1.2;
-	this.currentSpeed = this.SPEED;
-
-	this.zombieHtml.addClass("zombie-michael");
-}
-
-function ZombieStrong(id,road){
-	Zombie.apply(this,arguments);
-	
-	this.health = 70;
-	this.MAX_HEALTH = 70;
-	this.SPEED = 2;
-	this.MINSPEED = 1;
-	this.currentSpeed = this.SPEED;
-
-	this.zombieHtml.addClass("zombie-strong");
-}
-
 function Zombie(id,road){
 	
 	this.id = id;
 	this.road = road;
-	
 	this.health = 70;
 	this.MAX_HEALTH = 70;
 	this.SPEED = 1;
@@ -45,14 +20,16 @@ function Zombie(id,road){
 	this.zombieField.append(this.zombieHtml);
 	this.road.append(this.zombieField);
 
+	// функция перемещения зомби и проверки его состояния
 	this.move = function(){
 		var pos = this.zombieField.position();
 		var currentPosLeft = this.zombieField.position().left;
 		var nextPosLeft = currentPosLeft - this.currentSpeed;
 		var width = this.zombieField.width();
+		// проверка позициии зомби, если вышел за границу - удаляем
 		if(currentPosLeft > 0) {
-			//this.zombieField.animate({left: nextPosLeft + 'px',width: width},this.SPEED,'linear');
 			this.zombieField.css({left: nextPosLeft,width: width});
+			// проверка состояния зомби
 			var isHealthy = this.checkHealth();
 			if(isHealthy == "dead"){
 				return "dead";
@@ -64,6 +41,7 @@ function Zombie(id,road){
 		}
 	};
 	
+	// функция проверки состояния зомби
 	this.checkHealth = function(){
 		var currentHealth = this.health >= 0 ? this.health : 0;
 
@@ -76,14 +54,18 @@ function Zombie(id,road){
 			return "healthy";
 	}
 
+	// функция получения урона
 	this.receiveDamage = function(damage){
 		this.health -= damage;
 	}
 	
+	// функция остановки зомби
 	this.stop = function(){
 		this.zombieField.stop();
 	}
+
+	// функция удаления зомби
 	this.remove = function(){
-		this.zombieField.animate({opacity: '0'},'slow',this.zombieField.remove);
+		this.zombieField.remove()
 	}
 }
